@@ -29,17 +29,13 @@ badWordsFiles.forEach((badWordFile) => {
 
 badWordsWrapper.isIllegal = function(text) {
   let isBadWord = false;
-  _.forEach(badWordsWrapper.words, (badWordsSet, badWordsKey) => {
+  return _.some(badWordsWrapper.words, (badWordsSet, badWordsKey) => {
     const wordsInText = text.split(/[ ]+/).map((word) => _.toLower(word));
-    _.forEach(wordsInText, (word) => {
-      if (badWordsSet.has(word)) {
-        isBadWord = true;
-        return;
-      }
+    return _.some(wordsInText, (word) => {
+      return badWordsSet.has(word);
     });
-    if (isBadWord) return;
   });
-  return isBadWord;
 };
-
-module.exports = badWordsWrapper;
+module.exports = {
+  isIllegal: badWordsWrapper.isIllegal
+};
