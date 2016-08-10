@@ -30,7 +30,7 @@ badWordsFiles.forEach((badWordFile) => {
 badWordsWrapper.isIllegal = function(text) {
   let isBadWord = false;
   _.forEach(badWordsWrapper.words, (badWordsSet, badWordsKey) => {
-    const wordsInText = text.split(/[ ]+/);
+    const wordsInText = text.split(/[ ]+/).map((word) => _.toLower(word));
     _.forEach(wordsInText, (word) => {
       if (badWordsSet.has(word)) {
         isBadWord = true;
