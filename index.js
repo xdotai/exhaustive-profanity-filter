@@ -31,9 +31,7 @@ badWordsWrapper.isIllegal = function(text) {
   let isBadWord = false;
   return _.some(badWordsWrapper.words, (badWordsSet, badWordsKey) => {
     const wordsInText = text.split(/[ ]+/).map((word) => _.toLower(word));
-    return _.some(wordsInText, (word) => {
-      return badWordsSet.has(word);
-    });
+    return _.some(wordsInText, (word) => badWordsSet.has(word));
   });
 };
 module.exports = {
