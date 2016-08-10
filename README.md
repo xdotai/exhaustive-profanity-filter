@@ -1,1 +1,1 @@
-# comprehensive-profanity-filter
+# exhaustive-profanity-filter
