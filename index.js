@@ -27,7 +27,7 @@ badWordsFiles.forEach((badWordFile) => {
   }
 });
 
-badWordsWrapper.contains = function(text) {
+badWordsWrapper.isIllegal = function(text) {
   let isBadWord = false;
   _.forEach(badWordsWrapper.words, (badWordsSet, badWordsKey) => {
     const wordsInText = text.split(/[ ]+/);
