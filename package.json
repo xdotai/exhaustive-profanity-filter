@@ -1,5 +1,5 @@
 {
-  "name": "comprehensive-profanity-filter",
+  "name": "exhaustive-profanity-filter",
   "version": "1.0.0",
   "description": "A profanity filter that filters what's meant to be filtered.",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/keremkazan/comprehensive-profanity-filter.git"
+    "url": "git+https://github.com/keremkazan/exhaustive-profanity-filter.git"
   },
   "keywords": [
     "profanity",
@@ -20,9 +20,9 @@
   "author": "Kerem Kazan",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/keremkazan/comprehensive-profanity-filter/issues"
+    "url": "https://github.com/keremkazan/exhaustive-profanity-filter/issues"
   },
-  "homepage": "https://github.com/keremkazan/comprehensive-profanity-filter#readme",
+  "homepage": "https://github.com/keremkazan/exhaustive-profanity-filter#readme",
   "dependencies": {
     "lodash": "^4.14.2"
   }
