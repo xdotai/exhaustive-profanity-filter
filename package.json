@@ -4,7 +4,7 @@
   "description": "A profanity filter that filters what's meant to be filtered.",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "NODE_ENV=test mocha test/ProfanityFilter.js"
   },
   "repository": {
     "type": "git",
@@ -25,5 +25,12 @@
   "homepage": "https://github.com/keremkazan/exhaustive-profanity-filter#readme",
   "dependencies": {
     "lodash": "^4.14.2"
+  },
+  "devDependencies": {
+    "eslint": "^3.2.2",
+    "eslint-config-airbnb": "^10.0.0",
+    "eslint-plugin-import": "^1.12.0",
+    "eslint-plugin-jsx-a11y": "^2.1.0",
+    "eslint-plugin-react": "^6.0.0"
   }
 }
