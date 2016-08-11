@@ -3,11 +3,6 @@ const assert = require('assert');
 const _ = require('lodash');
 
 describe('ProfanityFilter', () => {
-  // const filter = new ProfanityFilter();
-  // it('should filter bad words', () => {
-  //   assert(filter.isIllegal('shit'), '<Shit> should be illegal.');
-  // });
-
   describe('when built', () => {
     const filterBuilt = new ProfanityFilter();
     it('should build the badwords bank correctly', () => {
@@ -26,6 +21,13 @@ describe('ProfanityFilter', () => {
         _.isEqual(filterBuilt.badWordsBank.test, expected),
         'could not build the badwords bank correctly'
       );
+    });
+  });
+
+  describe('isIllegal function', () => {
+    const filter = new ProfanityFilter();
+    it('should filter bad words', () => {
+      assert(filter.isIllegal('shit'), '<Shit> should be illegal.');
     });
   });
 

@@ -36,12 +36,9 @@ function ProfanityFilter() {
     badWordsBank: _.cloneDeep(badWordsBank),
 
     isIllegal: function isIllegal(text) {
-      const textWords = text.split(' ')
-        .map((word) => wordProcessor.normalize(word))
-        .filter((word) => word);
-      return _.some(textWords, (word) =>
-        _.some(this.badWordsBank, (badWordsPartition) => badWordsPartition.words.has(word))
-      );
+      const normalizedText = wordProcessor.normalize(text);
+      return wordProcessor.hasIllegalWord(normalizedText, this.badWordsBank) ||
+      wordProcessor.hasIllegalPhrase(normalizedText, this.badWordsBank);
     },
 
     add: function add(phrase, setName) {
