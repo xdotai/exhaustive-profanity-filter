@@ -8,7 +8,7 @@ const badWordsFiles = fs.readdirSync(badWordsDir);
 const badWordsBank = {};
 
 // will use this custom set for adding words to the bank
-// without specifying a name
+// without specifying a bucket name
 const ANON_SET_NAME = 'EPF_NAMELESS_SET';
 
 badWordsFiles.forEach((badWordsFile) => {
@@ -17,17 +17,18 @@ badWordsFiles.forEach((badWordsFile) => {
     .toString()
     .split(',')
     .map((badWord) => {
-      const replacedWord = wordProcessor.clean(badWord);
+      const replacedWord = wordProcessor.normalize(badWord);
       return _.toLower(replacedWord);
     });
-  // const wordsAndPhrasesPartitions = partitionWords(badWordsArray);
-  // singleWordsSet.delete('');
-  // phrasesSet.delete('');
-  // const badWordsKey = badWordsFile.split('.')[0];
-  // badWordsBank[badWordsKey] = {
-  //   singleWords: singleWordsSet,
-  //   phrases: phrasesSet
-  // };
+  const partition = wordProcessor.partitionWordsAndPhrases(badWordsArray, {
+    partitionType: wordProcessor.PARTITION_TYPES.SET,
+  });
+  const badWordsKey = badWordsFile.split('.')[0];
+  partition.words.delete('');
+  badWordsBank[badWordsKey] = {
+    words: partition.words,
+    phrases: partition.phrases,
+  };
 });
 
 function ProfanityFilter() {
@@ -36,10 +37,10 @@ function ProfanityFilter() {
 
     isIllegal: function isIllegal(text) {
       const textWords = text.split(' ')
-        .map((word) => wordProcessor.clean(word))
+        .map((word) => wordProcessor.normalize(word))
         .filter((word) => word);
       return _.some(textWords, (word) =>
-        _.some(this.badWordsBank, (badWordsSet) => badWordsSet.has(word))
+        _.some(this.badWordsBank, (badWordsPartition) => badWordsPartition.words.has(word))
       );
     },
 

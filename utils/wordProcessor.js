@@ -5,12 +5,29 @@ const PARTITION_TYPES = {
   SET: 'SET',
 };
 
-function clean(word) {
-  return word.trim().replace(/^[^a-zA-Z ]*$/g, ' ').trim();
+function normalize(text) {
+  return text.trim().replace(/^[^a-zA-Z ]*$/g, ' ').trim();
 }
 
 function isWord(text) {
   return text.split(' ').length === 1;
+}
+
+function hasIllegalPhrase(text, badWordsBank) {
+  return _.some(badWordsBank,
+    (badWordsPartition) => _.some(badWordsPartition.phrases,
+      (badPhrase) => _.includes(text, badPhrase)
+    )
+  );
+}
+
+function hasIllegalWord(text, badWordsBank) {
+  const words = text.split(' ');
+  return _.some(words,
+    (word) => _.some(badWordsBank,
+      (badWordsPartition) => badWordsPartition.words.has(word)
+    )
+  );
 }
 
 function partitionWordsAndPhrases(text, options) {
@@ -22,9 +39,7 @@ function partitionWordsAndPhrases(text, options) {
   const words = isArray ?
     partition[0] :
     new Set(partition[0]);
-  const phrases = isArray ?
-    partition[1] :
-    new Set(partition[1]);
+  const phrases = partition[1];
   return {
     words,
     phrases,
@@ -32,8 +47,10 @@ function partitionWordsAndPhrases(text, options) {
 }
 
 module.exports = {
-  clean,
+  normalize,
   isWord,
   partitionWordsAndPhrases,
+  hasIllegalPhrase,
+  hasIllegalWord,
   PARTITION_TYPES,
 };
