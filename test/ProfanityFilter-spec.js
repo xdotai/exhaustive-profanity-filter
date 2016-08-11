@@ -27,7 +27,11 @@ describe('ProfanityFilter', () => {
   describe('isIllegal function', () => {
     const filter = new ProfanityFilter();
     it('should filter bad words', () => {
-      assert(filter.isIllegal('shit'), '<Shit> should be illegal.');
+      assert(filter.isIllegal('shit'), '<shit> should be illegal.');
+    });
+
+    it('should filter bad words regardless of lettercases', () => {
+      assert(filter.isIllegal('Shit'), '<shit> should be illegal.');
     });
   });
 

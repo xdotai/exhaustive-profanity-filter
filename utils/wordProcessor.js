@@ -6,7 +6,7 @@ const PARTITION_TYPES = {
 };
 
 function normalize(text) {
-  return text.trim().replace(/^[^a-zA-Z ]*$/g, ' ').trim();
+  return _.toLower(text.replace(/^[^a-zA-Z ]*$/g, ' ').trim());
 }
 
 function isWord(text) {
