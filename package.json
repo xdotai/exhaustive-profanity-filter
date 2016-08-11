@@ -1,6 +1,6 @@
 {
   "name": "exhaustive-profanity-filter",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A profanity filter that filters what's meant to be filtered.",
   "main": "index.js",
   "scripts": {
