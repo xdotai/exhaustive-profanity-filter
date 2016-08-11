@@ -8,13 +8,20 @@ describe('ProfanityFilter', () => {
     it('should build the badwords bank correctly', () => {
       const expected = {
         words: new Set([
-          'words',
-          'are',
-          'not',
-          'phrases',
+          'exhaustive-profanity-filter-test-word-1',
+          'exhaustive-profanity-filter-test-word-2',
+          'exhaustive-profanity-filter-test-word-3',
+          'exhaustive-profanity-filter-test-word-4',
+          'exhaustive-profanity-filter-test-word-5',
+          'exhaustive-profanity-filter-test-word-6',
+          'exhaustive-profanity-filter-test-word-7',
+          'exhaustive-profanity-filter-test-word-8',
+          'exhaustive-profanity-filter-test-word-9',
         ]),
         phrases: [
-          'unless they are whitespace separated',
+          'exhaustive profanity filter test phrase 1',
+          'exhaustive profanity filter test phrase 2',
+          'exhaustive profanity filter test phrase 3',
         ],
       };
       assert(
