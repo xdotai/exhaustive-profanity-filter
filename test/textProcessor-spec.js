@@ -1,4 +1,4 @@
-const wordProcessor = require('../utils/wordProcessor');
+const wordProcessor = require('../utils/textProcessor');
 const assert = require('assert');
 const _ = require('lodash');
 

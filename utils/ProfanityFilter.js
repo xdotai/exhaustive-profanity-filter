@@ -1,31 +1,35 @@
 const fs = require('fs');
 const path = require('path');
 const _ = require('lodash');
-const wordProcessor = require('./wordProcessor');
+const textProcessor = require('./textProcessor');
 
-const badWordsDir = path.join(__dirname, '../', '/data/filter/');
-const badWordsFiles = fs.readdirSync(badWordsDir);
-const badWordsBank = {};
+const badTextsDir = path.join(__dirname, '../', '/data/filter/');
+const badTextsFiles = fs.readdirSync(badTextsDir);
+const badTextsBank = {};
 
-// will use this custom set for adding words to the bank
-// without specifying a bucket name
-const ANON_SET_NAME = 'EPF_NAMELESS_SET';
 
-badWordsFiles.forEach((badWordsFile) => {
-  const badWordsFilePath = path.join(badWordsDir, badWordsFile);
-  const badWordsArray = fs.readFileSync(badWordsFilePath)
+const CONSTANTS = {
+  // will use this custom set for adding words to the bank
+  // without specifying a bucket name
+  ANON_SET_NAME: 'EPF_NAMELESS_SET',
+};
+
+// building the base word bank
+badTextsFiles.forEach((badTextsFile) => {
+  const badTextsFilePath = path.join(badTextsDir, badTextsFile);
+  const badTextsArray = fs.readFileSync(badTextsFilePath)
     .toString()
     .split(',')
-    .map((badWord) => {
-      const replacedWord = wordProcessor.normalize(badWord);
+    .map((badText) => {
+      const replacedWord = textProcessor.normalize(badText);
       return _.toLower(replacedWord);
     });
-  const partition = wordProcessor.partitionWordsAndPhrases(badWordsArray, {
-    partitionType: wordProcessor.PARTITION_TYPES.SET,
+  const partition = textProcessor.partitionWordsAndPhrases(badTextsArray, {
+    partitionType: textProcessor.PARTITION_TYPES.SET,
   });
-  const badWordsKey = badWordsFile.split('.')[0];
+  const badTextsKey = badTextsFile.split('.')[0];
   partition.words.delete('');
-  badWordsBank[badWordsKey] = {
+  badTextsBank[badTextsKey] = {
     words: partition.words,
     phrases: partition.phrases,
   };
@@ -33,21 +37,18 @@ badWordsFiles.forEach((badWordsFile) => {
 
 function ProfanityFilter() {
   return {
-    badWordsBank: _.cloneDeep(badWordsBank),
+    badTextsBank: _.cloneDeep(badTextsBank),
 
     isIllegal: function isIllegal(text) {
-      const normalizedText = wordProcessor.normalize(text);
-      return wordProcessor.hasIllegalWord(normalizedText, this.badWordsBank) ||
-      wordProcessor.hasIllegalPhrase(normalizedText, this.badWordsBank);
+      const normalizedText = textProcessor.normalize(text);
+      return textProcessor.hasIllegalWord(normalizedText, this.badTextsBank) ||
+      textProcessor.hasIllegalPhrase(normalizedText, this.badTextsBank);
     },
 
-    add: function add(phrase, setName) {
-      const actualSetName = setName || ANON_SET_NAME;
-      if (setName) {
-        if (!this.extendedBadWordsBank[actualSetName]) {
-          this.extendedBadWordsBank[actualSetName] = new Set();
-        }
-        this.extendedBadWordsBank[actualSetName].add(phrase);
+    add: function add(text, partitionName) {
+      const actualPartitionName = partitionName || CONSTANTS.ANON_SET_NAME;
+      if (!this.badTextsBank[actualPartitionName]) {
+
       }
     },
   };

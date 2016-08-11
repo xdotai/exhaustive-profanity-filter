@@ -25,7 +25,7 @@ describe('ProfanityFilter', () => {
         ],
       };
       assert(
-        _.isEqual(filterBuilt.badWordsBank.test, expected),
+        _.isEqual(filterBuilt.badTextsBank.test, expected),
         'could not build the badwords bank correctly'
       );
     });
