@@ -4,7 +4,7 @@
   "description": "A profanity filter that filters what's meant to be filtered.",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha test/ProfanityFilter.js"
+    "test": "NODE_ENV=test mocha test"
   },
   "repository": {
     "type": "git",
