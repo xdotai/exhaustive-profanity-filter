@@ -47,8 +47,18 @@ function ProfanityFilter() {
 
     add: function add(text, partitionName) {
       const actualPartitionName = partitionName || CONSTANTS.ANON_SET_NAME;
+      const partition = _.isArray(text) ?
+        textProcessor.partition(text, textProcessor.PARTITION_TYPES.SET) :
+        textProcessor.partition([text], textProcessor.PARTITION_TYPES.SET);
       if (!this.badTextsBank[actualPartitionName]) {
-
+        this.badTextsBank[actualPartitionName] = partition;
+      } else {
+        partition.words.forEach((word) => {
+          this.badTextsBank[actualPartitionName].words.add(word);
+        });
+        partition.phrases.forEach((phrase) => {
+          this.badTextsBank[actualPartitionName].phrases.add(phrase);
+        });
       }
     },
   };
