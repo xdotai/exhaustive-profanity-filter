@@ -1,5 +1,5 @@
 {
-  "name": "exhaustive-profanity-filter",
+  "name": "@xdotai/exhaustive-profanity-filter",
   "version": "1.0.8",
   "description": "A profanity filter that filters what's meant to be filtered.",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/keremkazan/exhaustive-profanity-filter.git"
+    "url": "git+https://github.com/xdotai/exhaustive-profanity-filter.git"
   },
   "keywords": [
     "profanity",
@@ -19,9 +19,9 @@
   ],
   "author": "Kerem Kazan",
   "bugs": {
-    "url": "https://github.com/keremkazan/exhaustive-profanity-filter/issues"
+    "url": "https://github.com/xdotai/exhaustive-profanity-filter/issues"
   },
-  "homepage": "https://github.com/keremkazan/exhaustive-profanity-filter#readme",
+  "homepage": "https://github.com/xdotai/exhaustive-profanity-filter#readme",
   "dependencies": {
     "lodash": "^4.14.2"
   },
