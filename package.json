@@ -1,6 +1,6 @@
 {
   "name": "@xdotai/exhaustive-profanity-filter",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "A profanity filter that filters what's meant to be filtered.",
   "main": "index.js",
   "scripts": {
