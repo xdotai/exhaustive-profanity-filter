@@ -1,0 +1,70 @@
+base-executor: &base-executor-docker
+  image: 303214696237.dkr.ecr.us-east-1.amazonaws.com/circle-node_12
+  environment:
+
+
+defaults: &defaults
+  working_directory: ~/exhaustive-profanity-filter
+  resource_class: small
+  docker:
+    - *base-executor-docker
+
+
+slack-notify: &slack-notify
+  slack/status:
+    fail_only: true
+    only_for_branches: "master"
+    webhook: "${SLACK_WEBHOOK}"
+
+version: 2.1
+orbs:
+  slack: circleci/slack@3.4.2
+
+jobs:
+
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: npm ci
+      - run: npm run test
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory
+          root: /home
+          # Must be relative path from root
+          paths:
+            - circleci
+      - <<: *slack-notify
+
+  publis-pkg:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: /home
+      - run: |
+          mkdir -p /tmp/artifacts
+          npm --no-git-tag-version version "1.0.${CIRCLE_BUILD_NUM}"
+          pwd && ls -l
+          tarball_name=$(ls -1t *.tgz | head -1)
+          cp $tarball_name /tmp/artifacts/
+          npm publish $tarball_name
+
+      - store_artifacts:
+          path: /tmp/artifacts
+
+      - <<: *slack-notify
+
+
+workflows:
+  version: 2
+  build-n-deploy:
+    jobs:
+      - build
+      - publis-pkg:
+          requires:
+            - build
+          filters:
+            branches:
+              only: /master/
+
