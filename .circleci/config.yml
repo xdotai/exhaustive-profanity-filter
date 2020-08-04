@@ -47,6 +47,7 @@ jobs:
       - run: |
           mkdir -p /tmp/artifacts
           npm --no-git-tag-version version "1.0.${CIRCLE_BUILD_NUM}"
+          npm pack
           pwd && ls -l
           tarball_name=$(ls -1t *.tgz | head -1)
           cp $tarball_name /tmp/artifacts/
