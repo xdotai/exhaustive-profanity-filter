@@ -40,6 +40,14 @@ describe('ProfanityFilter', () => {
     it('should filter bad words regardless of lettercases', () => {
       assert(filter.isIllegal('Shit'), '<shit> should be illegal.');
     });
+
+    it('should allow for null', () => {
+      assert(!filter.isIllegal(undefined), 'undefined should not be illegal.');
+    });
+
+    it('should allow for undefined', () => {
+      assert(!filter.isIllegal(null), 'null should not be illegal.');
+    });
   });
 
   // describe('add function', () => {
