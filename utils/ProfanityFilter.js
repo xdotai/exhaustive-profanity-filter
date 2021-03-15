@@ -40,9 +40,9 @@ function ProfanityFilter() {
     badTextsBank: _.cloneDeep(badTextsBank),
 
     isIllegal: function isIllegal(text) {
-      const normalizedText = textProcessor.normalize(text);
+      const normalizedText = textProcessor.normalize(text || '');
       return textProcessor.hasIllegalWord(normalizedText, this.badTextsBank) ||
-      textProcessor.hasIllegalPhrase(normalizedText, this.badTextsBank);
+        textProcessor.hasIllegalPhrase(normalizedText, this.badTextsBank);
     },
 
     add: function add(text, partitionName) {
