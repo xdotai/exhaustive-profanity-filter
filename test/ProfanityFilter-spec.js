@@ -41,11 +41,11 @@ describe('ProfanityFilter', () => {
       assert(filter.isIllegal('Shit'), '<shit> should be illegal.');
     });
 
-    it('should allow for null', () => {
+    it('should allow for undefined', () => {
       assert(!filter.isIllegal(undefined), 'undefined should not be illegal.');
     });
 
-    it('should allow for undefined', () => {
+    it('should allow for null', () => {
       assert(!filter.isIllegal(null), 'null should not be illegal.');
     });
   });
